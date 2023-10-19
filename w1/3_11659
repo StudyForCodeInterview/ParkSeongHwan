@@ -1,0 +1,36 @@
+#include <cstdio>
+#pragma warning(disable:4996)
+
+int main()
+{
+
+	int n;
+	int m;
+	int prefixSum[100'001]={0,};
+	scanf("%d %d", &n,&m);
+
+
+	int sum = 0;
+	for (int i = 1; i <= n; ++i)
+	{
+		int data;
+		scanf("%d", &data);
+
+		sum += data;
+		prefixSum[i] = sum;
+
+	}
+
+
+	for (int i = 0; i < m; ++i)
+	{
+		int a;
+		int b;
+
+		scanf("%d %d", &a, &b);
+
+		printf("%d\n", prefixSum[b] - prefixSum[a - 1]);
+	}
+
+
+}
