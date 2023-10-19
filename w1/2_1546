@@ -1,0 +1,27 @@
+#include <cstdio>
+#pragma warning(disable:4996)
+
+int main()
+{
+
+	int n;
+	int result = 0;
+	scanf("%d", &n);
+
+	int max = -1;
+	int sum = 0;
+	for (int i = 0; i < n; ++i)
+	{
+		int data;
+		scanf("%d", &data);
+
+		if(data > max)
+		{
+			max = data;
+		}
+		sum += data;
+
+	}
+	printf("%f", (float)sum / max * 100 / n);
+	
+}
