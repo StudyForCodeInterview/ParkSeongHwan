@@ -1,0 +1,46 @@
+#include <algorithm>
+#include <cstdio>
+#include <queue>
+#include <vector>
+#pragma warning(disable:4996)
+
+int arr[5'000'000];
+
+struct my_struct
+{
+	int data, index;
+};
+
+int main()
+{
+	int n, l;
+	scanf("%d %d", &n, &l);
+
+	for (int i = 0; i < n; ++i)
+	{
+		int a;
+		scanf("%d", &arr[i]);
+	}
+
+	std::deque<my_struct> dq;
+
+	for (int i = 0; i < n; ++i)
+	{
+		while(!dq.empty() && dq.back().data > arr[i])
+		{
+			dq.pop_back();
+		}
+
+		dq.push_back({ arr[i], i });
+
+		if(dq.front().index < i - l + 1)
+		{
+			dq.pop_front();
+		}
+
+
+		printf("%d ", dq.front().data);
+	}
+
+
+}
