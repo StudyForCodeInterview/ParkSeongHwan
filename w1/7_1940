@@ -1,0 +1,51 @@
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <vector>
+#pragma warning(disable:4996)
+
+int arr[15000];
+
+using namespace std;
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+
+	int n, m;
+	std::cin >> n >> m;
+
+
+
+	for (int i = 0; i < n; ++i)
+	{
+		std::cin >> arr[i];
+	}
+
+	sort(arr, arr + n);
+
+	int front = 0;
+	int rear = n-1;
+	int count = 0;
+	while (front < rear)
+	{
+		if(arr[front] + arr[rear] < m)
+		{
+			front++;
+
+
+		}
+		else if(arr[front] + arr[rear] > m)
+		{
+			rear--;
+		}
+		else
+		{
+			count++;
+			front++;
+			rear--;
+		}
+	}
+	printf("%d", count);
+}
