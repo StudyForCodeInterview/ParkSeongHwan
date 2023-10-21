@@ -1,0 +1,38 @@
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <vector>
+#pragma warning(disable:4996)
+
+using namespace std;
+
+
+int arr[500'001];
+
+
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+
+
+	int n;
+
+	arr[1] = 1;
+	int val = 2;
+	for (int i = 2; i < 500'001; ++i)
+	{
+		if (i < val)
+			val = 2;
+
+		arr[i] = val;
+		val += 2;
+	}
+
+
+	cin >> n;
+
+	printf("%d", arr[n]);
+}
