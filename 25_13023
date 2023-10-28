@@ -1,0 +1,69 @@
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <vector>
+#pragma warning(disable:4996)
+
+using namespace std;
+
+vector<vector<int>> link;
+bool visited[2001];
+stack<int> nextNode;
+
+bool Gfind = false;
+int n;
+void findFriend(int depth, int cur){
+	if (depth == 5|| Gfind)
+	{
+		Gfind = true;
+		return;
+	}
+	visited[cur] = true;
+
+	for( auto _friend : link[cur])
+	{
+		if (!visited[_friend])
+			findFriend(depth + 1, _friend);
+	}
+
+	visited[cur] = false;
+}
+
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+
+	int m;
+
+	cin >> n >> m;
+
+	link.resize(n);
+	for (int i = 0; i < n; i++)
+	{
+		link[i].reserve(n);
+	}
+
+	while (m--)
+	{
+		int a, b;
+		cin >> a >> b;
+		link[a].push_back(b);
+		link[b].push_back(a);
+	}
+
+
+	for (int i = 0; i < n; i++)
+	{
+		findFriend(1, i);
+		if (Gfind)
+		{
+			cout << 1;
+			return 0;
+		}
+	}
+
+	cout << 0;
+}

@@ -1,0 +1,58 @@
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <vector>
+#pragma warning(disable:4996)
+
+using namespace std;
+
+bool link[1001][1001];
+bool visited[1001];
+queue<int> nextNode;
+
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+
+	int n, m;
+
+	cin >> n >> m;
+
+	while (m--)
+	{
+		int a, b;
+		cin >> a >> b;
+		link[a][b] = true;
+		link[b][a] = true;
+	}
+
+	int connectedComponent = 0;
+	for(int i = 1 ; i<= n; i++)
+	{
+		if(visited[i])
+			continue;
+
+		nextNode.push(i);
+		connectedComponent++;
+		while (!nextNode.empty())
+		{
+			auto cur = nextNode.front();
+			nextNode.pop();
+
+			for(auto j = 1; j <= n; j++)
+			{
+				if(link[cur][j] && !visited[j])
+				{
+					visited[j] = true;
+					nextNode.push(j);
+				}
+			}
+		}
+	}
+
+
+	cout << connectedComponent;
+}

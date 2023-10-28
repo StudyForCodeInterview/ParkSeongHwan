@@ -1,0 +1,64 @@
+#include <cmath>
+#include <iostream>
+
+
+#pragma warning(disable:4996)
+
+using namespace std;
+
+
+
+//가능한 경우의 수는 65535
+//n이 8일 때 가지당 대충 15000번 연산
+//최대 9.8억 돌긴 하는데
+//가지치기 하면 얼마나 줄어들지 모르겠음.
+int n;
+
+bool isPrime(int num)
+{
+	int end = sqrt(num);
+
+	for (int i = 2; i <= end; i++)
+	{
+		if (num % i == 0)
+			return false;
+	}
+	return true;
+}
+
+void solve(int Num, int depth)
+{
+
+	auto prime = isPrime(Num);
+
+	if (depth == n)
+	{
+		if(prime)
+			cout << Num << "\n";
+		return;
+	}
+
+	if(!prime)
+		return;
+
+	solve(Num * 10 + 1, depth + 1);
+	solve(Num * 10 + 3, depth + 1);
+	solve(Num * 10 + 7, depth + 1);
+	solve(Num * 10 + 9, depth + 1);
+}
+
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+
+	cin >> n;
+
+	solve(2, 1);
+	solve(3, 1);
+	solve(5, 1);
+	solve(7, 1);
+
+
+}
