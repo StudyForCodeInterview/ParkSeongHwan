@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <memory.h>
+#include <algorithm>
+#pragma warning (disable: 4996)
+using namespace std;
+
+
+char inp[50];
+
+int main()
+{
+	//std::ios::sync_with_stdio(false);
+	//std::cin.tie(nullptr);
+	//std::cout.tie(nullptr);
+
+	scanf("%s",inp);
+	
+	int numEnd=0;
+	char op = '+';
+	int inBrace = 0;
+	int cur = 0;
+	int tot = 0;
+
+	while (inp[numEnd] != '\0')
+	{
+		if (inp[numEnd] != '+' && inp[numEnd] != '-')
+		{
+			cur *= 10;
+			cur += inp[numEnd]-'0';
+			numEnd++;
+			continue;
+		}
+		if (op == '+') 
+		{
+			op = inp[numEnd];
+			tot += cur;
+			cur = 0;
+			numEnd++;
+		}
+		else 
+		{
+			if (inp[numEnd] == '-') 
+			{
+				inBrace += cur;
+				tot -= inBrace;
+				inBrace = 0;
+				cur = 0;
+				numEnd++;
+				op = '-';
+
+			}
+			else //inp[numEnd] == '+'
+			{
+				inBrace += cur;
+				cur = 0;
+				numEnd++;
+			}
+		}
+
+	}
+
+	if (op == '-') {
+		inBrace += cur;
+		tot -= inBrace;
+	}
+	else {
+		tot += cur;
+	}
+
+	printf("%d", tot);
+}
