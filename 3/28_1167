@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <memory.h>
+#pragma warning (disable:4996)
+using namespace std;
+
+struct ver {
+	int node;
+	int value;
+};
+
+bool visit[100'001];
+vector<vector<ver>>vertex;
+
+ver farNode = {-1,-1};
+stack<ver> s;
+void BFS() 
+{
+	while (!s.empty())
+	{
+		auto cur = s.top();
+		s.pop();
+		visit[cur.node] = true;
+		if (farNode.value < cur.value) {
+			farNode = cur;
+		}
+
+		for (auto& ver : vertex[cur.node]) 
+		{
+			if (!visit[ver.node]) 
+			{
+				s.push({ ver.node,ver.value + cur.value });
+			}
+		}
+	}
+}
+
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+
+	int v;
+	cin >> v;
+	vertex.resize(v+1);
+
+	for (int i = 1; i <= v; i++) 
+	{
+		int a, b,edge;
+		cin >> edge;
+		while (true) {
+			cin >> a;
+			if (a == -1)
+				break;
+			cin >> b;
+			vertex[edge].push_back({ a,b });
+			vertex[a].push_back({ edge,b });
+		}
+	}
+	s.push({ 1,0 });
+	BFS();
+	memset(visit, 0, sizeof(bool) * (v + 1));
+	farNode.value = 0;
+	s.push(farNode);
+	BFS();
+
+	cout << farNode.value;
+}
